@@ -2,6 +2,7 @@ const express = require("express");
 const userCheck = require("./middlewares");
 const { User, Notes } = require("./db");
 const config = require("./config");
+require("dotenv").config({ path: "./env" });
 const app = express();
 const jwt = require("jsonwebtoken");
 
@@ -15,7 +16,6 @@ app.get("/", (req, res) => {
 
 app.post("/register", async (req, res) => {
   try {
-    console.log("this", process.env.JWT_PASS);
     const { userName, password } = req.body;
     const existingUser = await User.findOne({ userName });
     if (existingUser) {
